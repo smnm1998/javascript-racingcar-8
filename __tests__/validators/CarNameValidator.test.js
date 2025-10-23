@@ -24,7 +24,7 @@ describe('CarNameValidator', () => {
       '5자 초과한 이름("%s")은 에러를 발생시킨다.',
       (name) => {
         expect(() => CarNameValidator.validate(name)).toThrow(
-          '[ERROR] 자동차 이름은 5자를 초과할 수 없습니다!',
+          '[ERROR] 자동차 이름은 1자 이상 5자 이하여야 합니다!',
         );
       },
     );

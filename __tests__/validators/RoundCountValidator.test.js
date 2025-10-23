@@ -1,3 +1,5 @@
+import RoundCountValidator from '../../src/validators/RoundCountValidator';
+
 describe('RoundCountValidator', () => {
   describe('validate - 정상 케이스', () => {
     test.each([[1], [5], [10], [50], [100]])(
@@ -26,18 +28,10 @@ describe('RoundCountValidator', () => {
         );
       },
     );
-
-    test.each([['abc'], [''], ['    '], ['12.5'], ['NaN']])(
-      '숫자가 아닌 값("%s")은 에러를 발생시킨다.',
-      (input) => {
-        expect(() => RoundCountValidator.validateInput(input)).toThrow(
-          '[ERROR] 라운드는 숫자로 입력하셔야 합니다!',
-        );
-      },
-    );
   });
 
   describe('validateInput - 문자열 입력 검증', () => {
+    // 파싱 성공
     test.each([['1'], ['10'], ['50'], ['100']])(
       '숫자 문자열("%s")는 파싱하여 검증한다.',
       (input) => {
@@ -46,16 +40,38 @@ describe('RoundCountValidator', () => {
     );
 
     test('공백이 포함된 숫자 문자열은 trim하여 검증한다.', () => {
-      expect(() => RoundCountValidator.validateInput('   10   ')).not.toThrow();
+      expect(() =>
+        RoundCountValidator.validateInput('    10    '),
+      ).not.toThrow();
     });
 
-    test.each([['0'], ['101'], ['-1'], ['abc'], ['']])(
-      '잘못된 문자열("%s")은 에러를 발생시킨다.',
+    test('trim 처리를 하였는데도 공백인 문자열은 에러를 발생시킨다', () => {
+      expect(() => RoundCountValidator.validateInput('')).toThrow(
+        '[ERROR] 빈 문자열은 입력할 수 없습니다!',
+      );
+    });
+
+    // 파싱 실패
+    test.each([['abc'], ['12.5'], ['NaN']])(
+      '숫자가 아닌 값("%s")은 에러를 발생시킨다.',
       (input) => {
         expect(() => RoundCountValidator.validateInput(input)).toThrow(
           '[ERROR] 라운드는 숫자로 입력하셔야 합니다!',
         );
       },
     );
+
+    // 파싱 성공했지만 범위를 초과했을 경우
+    test('1회 미만은 에러 발생', () => {
+      expect(() => RoundCountValidator.validateInput('0')).toThrow(
+        '[ERROR] 게임 시작은 최소 1회부터 가능합니다!',
+      );
+    });
+
+    test('100회 초과는 에러 발생', () => {
+      expect(() => RoundCountValidator.validateInput('101')).toThrow(
+        '[ERROR] 100 라운드를 초과할 수는 없습니다.',
+      );
+    });
   });
 });

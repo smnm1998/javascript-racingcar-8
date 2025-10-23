@@ -1,3 +1,5 @@
+import Car from '../../src/models/Car.js';
+
 describe('Car', () => {
   describe('자동차 생성 및 초기화', () => {
     test('자동차를 생성하면 초기 위치는 0이다.', () => {
@@ -39,6 +41,26 @@ describe('Car', () => {
       car.move(5); // 전진 -> 2
       car.move(2); // 정지 -> 2
       expect(car.getPosition()).toBe(2);
+    });
+  });
+
+  describe('경계값 테스트', () => {
+    test('랜덤값이 정확히 4일 때 전진한다', () => {
+      const car = new Car('pobi');
+      car.move(4);
+      expect(car.getPosition()).toBe(1);
+    });
+
+    test('랜덤값이 0일 때 전진하지 않는다.', () => {
+      const car = new Car('pobi');
+      car.move(0);
+      expect(car.getPosition()).toBe(0);
+    });
+
+    test('랜덤값이 9일 때 전진한다.', () => {
+      const car = new Car('pobi');
+      car.move(9);
+      expect(car.getPosition()).toBe(1);
     });
   });
 });

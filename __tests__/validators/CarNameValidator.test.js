@@ -29,4 +29,25 @@ describe('CarNameValidator', () => {
       },
     );
   });
+
+  describe('validate - 여러 이름 검증', () => {
+    test('쉼표로 구분된 여러 이름을 검증한다', () => {
+      const input = 'pobi,woni,jun';
+      expect(() => CarNameValidator.validateAll(input)).not.toThrow();
+    });
+
+    test('하나라도 5자를 초과하면 에러를 발생시킨다', () => {
+      const input = 'pobi,toolong,jun';
+      expect(() => CarNameValidator.validateAll(input)).toThrow(
+        '[ERROR] 이름을 5자 초과한 자동차가 있습니다!',
+      );
+    });
+
+    test('빈 문자열이 포함되면 에러를 발생시킨다.', () => {
+      const input = 'pobi, ,jun';
+      expect(() => CarNameValidator.validateAll()).toThrow(
+        '[ERROR] 이름이 없는 자동차가 있습니다!',
+      );
+    });
+  });
 });

@@ -1,3 +1,5 @@
+import Car from './Car.js';
+
 class RacingGame {
   #cars;
 

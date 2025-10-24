@@ -20,4 +20,29 @@ describe('RacingGame', () => {
     expect(cars[0].getPosition()).toBe(0);
     expect(cars[1].getPosition()).toBe(0);
   });
+
+  describe('라운드 실행', () => {
+    test('한 라운드를 실행하면 모든 차가 이동 시도한다.', () => {
+      const game = new RacingGame(['pobi', 'woni']);
+      const randomValues = [5, 3]; // pobi 전진, woni 정지
+
+      game.playRound(randomValues);
+      const cars = game.getCars();
+
+      expect(cars[0].getPosition()).toBe(1);
+      expect(cars[1].getPosition()).toBe(0);
+    });
+
+    test('여러 라운드를 실행할 수 있다.', () => {
+      const game = new RacingGame(['pobi', 'woni']);
+
+      game.playRound([5, 4]); // 둘 다 전진
+      game.playRound([3, 5]); // woni만 전진
+      game.playRound([5, 3]); // pobi만 전진
+
+      const cars = game.getCars();
+      expect(cars[0].getPosition()).toBe(2); // pobi
+      expect(cars[1].getPosition()).toBe(2); // woni
+    });
+  });
 });

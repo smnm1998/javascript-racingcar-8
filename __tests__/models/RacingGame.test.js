@@ -46,17 +46,19 @@ describe('RacingGame', () => {
     });
   });
 
-  describe('동점자가 있으면 공동 우승자다', () => {
-    const game = new RacingGame(['pobi', 'woni', 'jun']);
+  describe('우승자 판정', () => {
+    test('동점자가 있으면 공동 우승자다.', () => {
+      const game = new RacingGame(['pobi', 'woni', 'jun']);
 
-    game.playRound([5, 1, 7]); // pobi, jun 전진
-    game.playRound([4, 3, 4]); // pobi, jun 전진
+      game.playRound([5, 1, 7]); // pobi, jun 전진
+      game.playRound([4, 3, 4]); // pobi, jun 전진
 
-    const winners = game.getWinners();
+      const winners = game.getWinners();
 
-    expect(winners).toHaveLength(2);
-    expect(winners[0].getName()).toBe('pobi');
-    expect(winners[2].getName()).toBe('jun');
+      expect(winners).toHaveLength(2);
+      expect(winners[0].getName()).toBe('pobi');
+      expect(winners[1].getName()).toBe('jun');
+    });
   });
 
   test('아무도 전진하지 않았을 때 모두 우승자다', () => {

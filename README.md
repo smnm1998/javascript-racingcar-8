@@ -42,7 +42,7 @@
 
 ### 2. racingGame(자동차 경주)
 
-> **models/Car, models/RacingGame, controllers/GameController**
+> **models/Car, models/RacingGame, src/App.js**
 
 - **Car**: 자동차 객체
   - 이름 저장 및 현재 위치 추적

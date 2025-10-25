@@ -10,13 +10,15 @@ describe('OutputView', () => {
   });
 
   // 각 테스트 후 spy 정리
-  beforeEach(() => {
+  afterEach(() => {
     logSpy.mockRestore();
   });
 
   test('게임 시작 메시지를 출력한다.', () => {
     OutputView.printStart();
-    expect(logSpy).toHaveBeenCalledWith('경주할 자동차 이름을 입력하세요.');
+    expect(logSpy).toHaveBeenCalledWith(
+      '경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)',
+    );
   });
 
   test('라운드 결과를 출력한다.', () => {

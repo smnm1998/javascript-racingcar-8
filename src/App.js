@@ -10,14 +10,9 @@ class App {
   #roundCount;
 
   async run() {
-    try {
-      await this.#setupGame();
-      await this.#playGame();
-      this.#announceWinner();
-    } catch (error) {
-      OutputView.printError(error.message);
-      await this.run();
-    }
+    await this.#setupGame();
+    await this.#playGame();
+    this.#announceWinner();
   }
 
   async #setupGame() {

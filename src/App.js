@@ -1,5 +1,3 @@
-import { Random } from '@woowacourse/mission-utils';
-import { GAME } from './constants/game.js';
 import InputView from './views/InputView.js';
 import OutputView from './views/OutputView.js';
 import CarNameValidator from './validators/CarNameValidator.js';
@@ -33,8 +31,7 @@ class App {
 
   async #playGame() {
     for (let i = 0; i < this.#roundCount; i++) {
-      const randomValues = this.#generateRandomValues();
-      this.#game.playRound(randomValues);
+      this.#game.playRound();
       OutputView.printRoundResult(this.#game.getCars());
     }
   }
@@ -42,13 +39,6 @@ class App {
   #announceWinner() {
     const winners = this.#game.getWinners();
     OutputView.printWinners(winners);
-  }
-
-  #generateRandomValues() {
-    const carCount = this.#game.getCars().length;
-    return Array.from({ length: carCount }, () =>
-      Random.pickNumberInRange(GAME.RANDOM.MIN, GAME.RANDOM.MAX),
-    );
   }
 }
 

@@ -1,10 +1,15 @@
+import { CAR } from '../constants/car.js';
+
 class CarNameValidator {
   static validate(carName) {
     if (!carName || carName.trim() === '') {
       throw new Error('[ERROR] 자동차 이름을 제대로 명시해주세요!');
     }
 
-    if (carName.length < 1 || carName.length > 5) {
+    if (
+      carName.length < CAR.NAME.MIN_LENGTH ||
+      carName.length > CAR.NAME.MAX_LENGTH
+    ) {
       throw new Error('[ERROR] 자동차 이름은 1자 이상 5자 이하여야 합니다!');
     }
   }

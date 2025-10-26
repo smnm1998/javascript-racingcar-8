@@ -1,4 +1,5 @@
 import { Random } from '@woowacourse/mission-utils';
+import { GAME } from './constants/game.js';
 import InputView from './views/InputView.js';
 import OutputView from './views/OutputView.js';
 import CarNameValidator from './validators/CarNameValidator.js';
@@ -46,7 +47,7 @@ class App {
   #generateRandomValues() {
     const carCount = this.#game.getCars().length;
     return Array.from({ length: carCount }, () =>
-      Random.pickNumberInRange(0, 9),
+      Random.pickNumberInRange(GAME.RANDOM.MIN, GAME.RANDOM.MAX),
     );
   }
 }

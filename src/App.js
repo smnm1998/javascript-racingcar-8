@@ -30,6 +30,7 @@ class App {
   }
 
   async #playGame() {
+    OutputView.printResultStart();
     for (let i = 0; i < this.#roundCount; i++) {
       this.#game.playRound();
       OutputView.printRoundResult(this.#game.getCars());
